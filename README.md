@@ -1,5 +1,4 @@
-is-msgs
-==========
+# is-msgs-sea
 
 Repository containing all the standard protobuf messages definitions for the *is::* framework. The .proto definitions are used to generate code in other programming languages. In order to use that generated code you need to know the conventions for your language of choice:
   - [C++](https://developers.google.com/protocol-buffers/docs/reference/cpp-generated)
@@ -61,9 +60,17 @@ Now to use it on the browser, include the browserified bundle, i.e:
 // ...
 ```
 
-## *Python* 
+## *Python*
 
-Documentation about the usage of this package in python can be found at [python/README.md](python/README.md#usage).
+Documentation about the Python package can be found at [python/README.md](python/README.md).
+
+The modern Python distribution is `is-msgs-sea==1.2.0`; imports remain
+`is_msgs`. It supports Python 3.10–3.14 and Protobuf 5–7. See the
+[migration guide](MIGRATION.md) and [compatibility policy](COMPATIBILITY.md).
+
+```shell
+uv add is-msgs-sea
+```
 
 ## Releasing new versions
 
@@ -85,3 +92,8 @@ To release a new python package, check the docs at [python/README.md](python/REA
 ### C++
 
 > Under construction
+
+## Acknowledgements
+
+The modernization, compatibility review, type-safety work, testing, and PyPI packaging of
+the 1.2 series were completed with assistance from OpenAI Codex.
