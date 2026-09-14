@@ -9,6 +9,12 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
+class TimestampSource(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    TIMESTAMP_SOURCE_UNSPECIFIED: _ClassVar[TimestampSource]
+    TIMESTAMP_SOURCE_CAMERA: _ClassVar[TimestampSource]
+    TIMESTAMP_SOURCE_GATEWAY_RECEIVE: _ClassVar[TimestampSource]
+
 class ImageFormats(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     PNG: _ClassVar[ImageFormats]
@@ -50,6 +56,9 @@ class ObjectLabels(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     UNKNOWN_OBJECT: _ClassVar[ObjectLabels]
     HUMAN_SKELETON: _ClassVar[ObjectLabels]
+TIMESTAMP_SOURCE_UNSPECIFIED: TimestampSource
+TIMESTAMP_SOURCE_CAMERA: TimestampSource
+TIMESTAMP_SOURCE_GATEWAY_RECEIVE: TimestampSource
 PNG: ImageFormats
 JPEG: ImageFormats
 WebP: ImageFormats
@@ -82,12 +91,18 @@ UNKNOWN_OBJECT: ObjectLabels
 HUMAN_SKELETON: ObjectLabels
 
 class Image(_message.Message):
-    __slots__ = ("data", "uri")
+    __slots__ = ("data", "uri", "header", "sequence", "timestamp_source")
     DATA_FIELD_NUMBER: _ClassVar[int]
     URI_FIELD_NUMBER: _ClassVar[int]
+    HEADER_FIELD_NUMBER: _ClassVar[int]
+    SEQUENCE_FIELD_NUMBER: _ClassVar[int]
+    TIMESTAMP_SOURCE_FIELD_NUMBER: _ClassVar[int]
     data: bytes
     uri: str
-    def __init__(self, data: _Optional[bytes] = ..., uri: _Optional[str] = ...) -> None: ...
+    header: _common_pb2.Header
+    sequence: int
+    timestamp_source: TimestampSource
+    def __init__(self, data: _Optional[bytes] = ..., uri: _Optional[str] = ..., header: _Optional[_Union[_common_pb2.Header, _Mapping]] = ..., sequence: _Optional[int] = ..., timestamp_source: _Optional[_Union[TimestampSource, str]] = ...) -> None: ...
 
 class RawImage(_message.Message):
     __slots__ = ("header", "resolution", "encoding", "is_bigendian", "step", "data")

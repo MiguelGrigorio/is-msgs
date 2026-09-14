@@ -1,4 +1,4 @@
-# Protocol Documentation
+# Documentação dos protocolos
 <a name="top"></a>
 
 ## Table of Contents
@@ -65,6 +65,7 @@
     - [HumanKeypoints](#is-vision-HumanKeypoints)
     - [ImageFormats](#is-vision-ImageFormats)
     - [ObjectLabels](#is-vision-ObjectLabels)
+    - [TimestampSource](#is-vision-TimestampSource)
   
 - [is/msgs/power.proto](#is_msgs_power-proto)
     - [PowerInfo](#is-common-PowerInfo)
@@ -857,6 +858,9 @@ or referenced as an external resource.
 | ----- | ---- | ----- | ----------- |
 | data | [bytes](#bytes) |  | Image content, represented as a stream of bytes in well known image [formats](#is.image.ImageFormat). |
 | uri | [string](#string) |  | URI to external image source. |
+| header | [is.common.Header](#is-common-Header) |  | Acquisition timestamp and camera frame identifier. Older producers may leave this field unset. |
+| sequence | [uint64](#uint64) |  | Monotonic sequence number assigned by the producer for this camera. |
+| timestamp_source | [TimestampSource](#is-vision-TimestampSource) |  | Describes how header.stamp was obtained. |
 
 
 
@@ -1074,6 +1078,18 @@ List of image formats.
 | ---- | ------ | ----------- |
 | UNKNOWN_OBJECT | 0 |  |
 | HUMAN_SKELETON | 1 |  |
+
+
+<a name="is-vision-TimestampSource"></a>
+
+### TimestampSource
+Origin of an image acquisition timestamp.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| TIMESTAMP_SOURCE_UNSPECIFIED | 0 |  |
+| TIMESTAMP_SOURCE_CAMERA | 1 |  |
+| TIMESTAMP_SOURCE_GATEWAY_RECEIVE | 2 |  |
 
 
  

@@ -19,6 +19,21 @@ message Image {
     // URI to external image source.
     string uri = 2;
   }
+
+  // Acquisition timestamp and camera frame identifier. Older producers may
+  // leave this field unset.
+  is.common.Header header = 3;
+  // Monotonic sequence number assigned by the producer for this camera.
+  uint64 sequence = 4;
+  // Describes how header.stamp was obtained.
+  TimestampSource timestamp_source = 5;
+}
+
+// Origin of an image acquisition timestamp.
+enum TimestampSource {
+  TIMESTAMP_SOURCE_UNSPECIFIED = 0;
+  TIMESTAMP_SOURCE_CAMERA = 1;
+  TIMESTAMP_SOURCE_GATEWAY_RECEIVE = 2;
 }
 
 // Uncompressed pixel buffer, preserving the sensor_msgs/Image memory layout.

@@ -10,7 +10,12 @@ from is_msgs.common_pb2 import (
     Twist,
     Vector3,
 )
-from is_msgs.image_pb2 import CompressedImage, Image, RawImage
+from is_msgs.image_pb2 import (
+    TIMESTAMP_SOURCE_GATEWAY_RECEIVE,
+    CompressedImage,
+    Image,
+    RawImage,
+)
 from is_msgs.power_pb2 import PowerInfo
 from is_msgs.robot_pb2 import Imu, Odometry, PointCloud, RangeScan
 from is_msgs.ros_pb2 import ROSMessage, TFMessage
@@ -74,6 +79,24 @@ def test_sensor_payloads_preserve_binary_buffers():
     assert RawImage.FromString(raw.SerializeToString()) == raw
     assert CompressedImage.FromString(compressed.SerializeToString()) == compressed
     assert PointCloud.FromString(cloud.SerializeToString()).data == bytes(range(16))
+
+
+def test_image_capture_metadata_is_additive_and_round_trips():
+    legacy_fixture = Image(data=b"legacy").SerializeToString(deterministic=True)
+    stamped = Image(
+        data=b"jpeg",
+        header=Header(frame_id="camera-5"),
+        sequence=42,
+        timestamp_source=TIMESTAMP_SOURCE_GATEWAY_RECEIVE,
+    )
+    stamped.header.stamp.FromNanoseconds(1_700_000_000_123_456_789)
+
+    assert Image.FromString(legacy_fixture).data == b"legacy"
+    decoded = Image.FromString(stamped.SerializeToString())
+    assert decoded.sequence == 42
+    assert decoded.header.frame_id == "camera-5"
+    assert decoded.header.stamp.ToNanoseconds() == 1_700_000_000_123_456_789
+    assert decoded.timestamp_source == TIMESTAMP_SOURCE_GATEWAY_RECEIVE
 
 
 def test_robotics_messages_and_tf_round_trip():

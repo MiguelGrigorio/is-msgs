@@ -1,36 +1,36 @@
-# is-msgs-sea for Python
+# is-msgs-sea para Python
 
-The distribution is named `is-msgs-sea`; the import package remains
-`is_msgs` so existing source code does not need to change.
+A distribuição se chama `is-msgs-sea`; o pacote de import continua sendo
+`is_msgs`, portanto o código existente não precisa mudar.
 
 ```shell
 uv remove is-msgs
-uv add is-msgs-sea==1.2.0
+uv add is-msgs-sea==1.3.0
 ```
 
-Python 3.10 through 3.14 and Protobuf 5 through 7 are supported. Do not install
-`is-msgs` and `is-msgs-sea` together because both provide `is_msgs`.
+Python 3.10 a 3.14 e Protobuf 5 a 7 são suportados. Não instale
+`is-msgs` e `is-msgs-sea` juntos, pois ambos fornecem `is_msgs`.
 
-## Compiling application protos
+## Compilando protos da aplicação
 
-Install the opt-in compiler and invoke the module without changing your
-project directory:
+Instale o compilador opcional e invoque o módulo sem alterar o diretório do
+projeto:
 
 ```shell
-uv add 'is-msgs-sea[codegen]==1.2.0'
+uv add 'is-msgs-sea[codegen]==1.3.0'
 uv run python -m is_msgs.utils.build --output generated proto/my_service.proto
 ```
 
-Application schemas may keep the canonical import:
+Os schemas da aplicação podem manter o import canônico:
 
 ```protobuf
 import "is/msgs/common.proto";
 ```
 
-The installed wheel already contains generated `*_pb2.py`, type stubs, and
-transformed imports. Installation never downloads `protoc` or generates code.
+O wheel instalado já contém `*_pb2.py` gerados, stubs de tipos e imports
+transformados. A instalação nunca baixa o `protoc` nem gera código.
 
-## Reproducible repository codegen
+## Geração reproduzível no repositório
 
 ```shell
 uv sync --extra codegen
@@ -38,12 +38,12 @@ uv run python scripts/generate_python.py
 git diff --exit-code
 ```
 
-Build and validate a release with:
+Gere e valide uma versão com:
 
 ```shell
 uv build
 uv publish --dry-run dist/*
 ```
 
-After explicit authorization, publish those exact artifacts with `uv publish
+Após autorização explícita, publique esses artefatos exatos com `uv publish
 dist/*`.

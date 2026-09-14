@@ -1,4 +1,12 @@
-# Changelog
+# Registro de alterações
+
+## 1.3.0
+
+- Added acquisition `header`, monotonic `sequence`, and `timestamp_source` to
+  `is.vision.Image` without changing the existing `data` and `uri` fields.
+- Added explicit camera and gateway-receive timestamp source values for
+  synchronized computer-vision pipelines.
+- Verified descriptor compatibility with every message and enum from 1.1.18.
 
 ## 1.2.0
 

@@ -1,21 +1,25 @@
 # is-msgs-sea
 
-Repository containing all the standard protobuf messages definitions for the *is::* framework. The .proto definitions are used to generate code in other programming languages. In order to use that generated code you need to know the conventions for your language of choice:
+Repositório que contém todas as definições padrão de mensagens protobuf do framework *is::*.
+As definições `.proto` são usadas para gerar código em outras linguagens. Para usar o
+código gerado, conheça as convenções da linguagem escolhida:
   - [C++](https://developers.google.com/protocol-buffers/docs/reference/cpp-generated)
   - [Javascript/ NodeJS](https://developers.google.com/protocol-buffers/docs/reference/javascript-generated)
   - [Python](https://developers.google.com/protocol-buffers/docs/reference/python-generated)
 
-Documentation for the messages and their fields can be found in the [docs folder](docs/README.md).
+A documentação das mensagens e de seus campos está na [pasta docs](docs/README.md).
 
 ## *C++*
-##### BUILDING FROM SOURCE 
-To build this library from source first run the bootstrap script to get build dependencies, then run the build script. 
+##### COMPILANDO A PARTIR DO CÓDIGO-FONTE
+Para compilar esta biblioteca, execute primeiro o script de preparação das dependências
+e depois o script de build.
 ```shell
-./bootstrap.sh # to get build dependencies
-./build.sh # to build library
+./bootstrap.sh # obtém as dependências de build
+./build.sh # compila a biblioteca
 ```
 ##### CONAN PACKAGE
-A conan artifact is available in our lab.  **Contact the maintainers to gain access to download from our conan server. It's not public for everyone.**
+Um artefato Conan está disponível em nosso laboratório. **Entre em contato com os
+mantenedores para obter acesso ao servidor Conan; ele não é público.**
 
 ##### USAGE
 
@@ -26,15 +30,16 @@ is::common::Tensor tensor;
 ```
 
 ## *Javascript / NodeJS*
-To use protocol buffers with JavaScript you need the protocol compiler *protoc* download a [pre-built binary on GitHub](https://github.com/google/protobuf/releases).
+Para usar protocol buffers com JavaScript, você precisa do compilador *protoc*; baixe um
+[binário pré-compilado no GitHub](https://github.com/google/protobuf/releases).
 
-Install build dependencies and compile .proto schemas to .js files:
+Instale as dependências de build e compile os schemas `.proto` para arquivos `.js`:
 ```shell
-npm install # to get build dependencies
-npm run generate # to generate js files
+npm install # obtém as dependências de build
+npm run generate # gera os arquivos js
 ```
 
-Now to use it on server side (nodejs) simply import and use the generated files, i.e:
+Para usar no lado do servidor (Node.js), importe e use os arquivos gerados:
 ```js
 const common = require("./is/msgs/common_pb.js");
 
@@ -44,12 +49,12 @@ console.log(tensor.toObject());
 // ...
 ```
 
-To use it on the browser, browserify the files by running:
+Para usar no navegador, empacote os arquivos com browserify:
 ```shell
 npm run browserify 
 ```
 
-Now to use it on the browser, include the browserified bundle, i.e:
+Depois, inclua o bundle gerado no navegador:
 ```html
 <script src="is_msgs.js"></script>
 <script>
@@ -62,9 +67,9 @@ Now to use it on the browser, include the browserified bundle, i.e:
 
 ## *Python*
 
-Documentation about the Python package can be found at [python/README.md](python/README.md).
+A documentação do pacote Python está em [python/README.md](python/README.md).
 
-The modern Python distribution is `is-msgs-sea==1.2.0`; imports remain
+The modern Python distribution is `is-msgs-sea==1.3.0`; imports remain
 `is_msgs`. It supports Python 3.10–3.14 and Protobuf 5–7. See the
 [migration guide](MIGRATION.md) and [compatibility policy](COMPATIBILITY.md).
 
@@ -72,13 +77,15 @@ The modern Python distribution is `is-msgs-sea==1.2.0`; imports remain
 uv add is-msgs-sea
 ```
 
-## Releasing new versions
+## Publicando novas versões
 
-First of all, bumps the version on the `.version` file following the pattern `^[0-9]+\.[0-9]+\.[0-9]+$`.
+Primeiro, atualize a versão no arquivo `.version`, seguindo o padrão `^[0-9]+\.[0-9]+\.[0-9]+$`.
 
-#### Post release steps
+#### Etapas após a publicação
 
-After release `is_msgs` in any programing language, the protobuf's documentation available `docs/README.md` file will be automatically updated. Remember to commit and push those changes, as well as creates a tag on git related to the new version. To do so, run the following commands:
+Após publicar `is_msgs` em qualquer linguagem, a documentação dos protobufs em
+`docs/README.md` será atualizada automaticamente. Faça commit e push dessas alterações
+e crie uma tag Git para a nova versão:
 
 ```shell
 git tag v$(cat .version)
@@ -87,7 +94,7 @@ git push origin v$(cat .version)
 
 ### Python
 
-To release a new python package, check the docs at [python/README.md](python/README.md#releasing-new-versions).
+Para publicar uma nova versão Python, consulte [python/README.md](python/README.md).
 
 ### C++
 
@@ -95,5 +102,6 @@ To release a new python package, check the docs at [python/README.md](python/REA
 
 ## Acknowledgements
 
-The modernization, compatibility review, type-safety work, testing, and PyPI packaging of
-the 1.2 series were completed with assistance from OpenAI Codex.
+A modernização, a revisão de compatibilidade, o trabalho de segurança de tipos, os testes
+e o empacotamento no PyPI das séries 1.2 e 1.3 foram realizados com assistência do
+OpenAI Codex.
